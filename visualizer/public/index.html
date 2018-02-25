@@ -2,19 +2,39 @@
 <html>
 <head>
   <title>MEAN is best</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
 
-  <h1>Express FTW!</h1>
+  <div id="pegasus-viz" style="width:800px;height:800px;"></div>
 
   <script>
+	  PEGASUS_VIZ = document.getElementById('pegasus-viz');
     ws = new WebSocket('ws://localhost:3000')
     ws.onmessage = function (event) {
-      console.log(event.data);
+      const data = JSON.parse(event.data)
+      if(data.message) {
+        if(data.message == 'init') {
+          Plotly.plot(PEGASUS_VIZ, 
+            [{
+	            x: data.x,
+              y: data.y,
+              marker: {
+                colorscale: 'Rainbow',
+                color: data.color,
+                size: 12
+              },
+              mode: 'markers'
+            }]
+          )
+        } else if (data.message == 'update') {
+
+        }
+      }
     }
-    ws.onopen = function (evt) {
-      ws.send("Hello!")
-    }
+    // ws.onopen = function (evt) {
+    //   ws.send("Hello!")
+    // }
   </script>
 
 </body>

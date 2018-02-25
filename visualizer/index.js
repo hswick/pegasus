@@ -18,8 +18,13 @@ ws.on('connection', function connection(ws, req) {
   ws.on('message', function incoming(message) {
     console.log('received: %s', message)
   })
- 
-  ws.send('something')
+
+  ws.send(JSON.stringify({
+    message: 'init',
+    x: [1, 2, 3, 4, 5],
+    y: [1, 2, 3, 4, 5],
+    color: [0, 1, 2, 3, 4]
+  }))
 })
 
 server.listen(3000, () => console.log('Example app listening on port 3000!'))
