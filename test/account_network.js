@@ -1,7 +1,7 @@
 var AccountNetwork = artifacts.require("./AccountNetwork.sol")
 
 contract('AccountNetwork', function(accounts) {
-  let AccountNetwork
+  let accountNetwork
 
   before(async () => {
     accountNetwork = await AccountNetwork.deployed()
