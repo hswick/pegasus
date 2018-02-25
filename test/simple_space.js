@@ -1,6 +1,8 @@
 const SimpleSpace = artifacts.require("./SimpleSpace.sol")
 const toPoint = require('./helpers/point')
 
+const billion = 1000000000
+
 contract('SimpleSpace', function(accounts) {
   let simpleSpace
 
@@ -14,10 +16,10 @@ contract('SimpleSpace', function(accounts) {
   
       const point = toPoint(await simpleSpace.getPointOf.call(accounts[i]))
   
-      assert(1000000000 > point.x, 'x is greater than a billion')
-      assert(-1000000000 < point.x, 'x is less than negative billion')
-      assert(1000000000 > point.y, 'y is greater than a billion')
-      assert(-1000000000 < point.y, 'y is less than negative billion')
+      assert(billion > point.x, 'x is greater than a billion')
+      assert(-billion < point.x, 'x is less than negative billion')
+      assert(billion > point.y, 'y is greater than a billion')
+      assert(-billion < point.y, 'y is less than negative billion')
     })
   }
 })

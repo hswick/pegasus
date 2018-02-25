@@ -7,7 +7,7 @@ contract SimpleSpace {
     int32 y;
   }
 
-  mapping(address => Point) points;
+  mapping(address => Point) private points;
 
   function newPoint() public {
     Point storage p = points[msg.sender];

@@ -1,4 +1,4 @@
-var AccountNetwork = artifacts.require("./AccountNetwork.sol")
+const AccountNetwork = artifacts.require("./AccountNetwork.sol")
 
 contract('AccountNetwork', function(accounts) {
   let accountNetwork
