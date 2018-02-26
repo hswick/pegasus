@@ -10,6 +10,11 @@ contract PegasusZero is AccountNetwork, SimpleRandomSpace {
     newPoint();
   }
 
+  function getPegasusCoordinate(address pegasus) public view returns (int x, int y, uint z) {
+    Vector2 storage p = points[pegasus];
+    return (p.x, p.y, numConnectionsTo(pegasus));
+  }
+
   function newConnectionRequest(address pegasus) public {
     newRequestTo(pegasus);
   }

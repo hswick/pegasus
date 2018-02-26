@@ -16,9 +16,11 @@
       if(data.message) {
         if(data.message == 'init') {
           Plotly.plot(PEGASUS_VIZ, 
-            [{
+          [{
 	            x: data.x,
               y: data.y,
+              z: data.z,
+              type: 'scatter3d',
               marker: {
                 colorscale: 'Rainbow',
                 color: data.color,
@@ -28,7 +30,21 @@
             }]
           )
         } else if (data.message == 'update') {
-          Plotly.update(PEGASUS_VIZ, data.update)
+          //console.log(data)
+          Plotly.newPlot(PEGASUS_VIZ,
+            [{
+	            x: data.x,
+              y: data.y,
+              z: data.z,
+              type: 'scatter3d',
+              marker: {
+                colorscale: 'Rainbow',
+                color: data.color,
+                size: 12
+              },
+              mode: 'markers'
+            }]
+          )
         }
       }
     }

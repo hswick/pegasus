@@ -4,11 +4,14 @@ const path = require('path')
 const http = require('http')
 const WebSocket = require('ws')
 const url = require('url')
+const jayson = require('jayson')
 
 app.use(express.static(path.join(__dirname, 'public')))
 
 const server = http.createServer(app)
 const ws = new WebSocket.Server({server})
+
+let real_socket
 
 ws.on('connection', function connection(ws, req) {
   const location = url.parse(req.url, true)
@@ -19,12 +22,21 @@ ws.on('connection', function connection(ws, req) {
     console.log('received: %s', message)
   })
 
-  ws.send(JSON.stringify({
-    message: 'init',
-    x: [1, 2, 3, 4, 5],
-    y: [1, 2, 3, 4, 5],
-    color: [0, 1, 2, 3, 4]
-  }))
+  real_socket = ws
 })
 
-server.listen(3000, () => console.log('Example app listening on port 3000!'))
+// create a server
+const rpcServer = jayson.server({
+  test: (data, cb) => {
+    cb(null, { ok: true})
+  },
+  message: (data, cb) => {
+    real_socket.send(JSON.stringify(data))
+    cb(null, { ok: true })
+  }
+})
+
+rpcServer.http().listen(3001)
+
+
+server.listen(3000, () => console.log('Pegasus Visualizer listening on port 3000!'))
