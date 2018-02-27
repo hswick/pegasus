@@ -11,6 +11,7 @@
   <script>
 	  PEGASUS_VIZ = document.getElementById('pegasus-viz');
     ws = new WebSocket('ws://localhost:3000')
+    let num = 0
     ws.onmessage = function (event) {
       const data = JSON.parse(event.data)
       if(data.message) {

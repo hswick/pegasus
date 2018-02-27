@@ -33,16 +33,16 @@ contract PegasusZero is AccountNetwork, SimpleRandomSpace {
    Vector2 memory temp;
    temp.x = v0.x;
    temp.y = v0.y;
-   Vector2 memory delta = moveTowards(v0, v1, 10);
+   Vector2 memory delta = moveTowards(v0, v1, int(10 ** 77));
    v0.x = delta.x;
    v0.y = delta.y;
-   Vector2 memory delta2 = moveTowards(v1, temp, 10);
+   Vector2 memory delta2 = moveTowards(v1, temp, int(10 ** 77));
    v1.x = delta2.x;
    v1.y = delta2.y;
   }
 
   // Vector2D a_moved = a.add(b.subtract(a).norm().multiply(d));
-  function moveTowards(Vector2 v0, Vector2 v1, int scalar) internal pure returns (Vector2 newVec) {
+  function moveTowards(Vector2 v0, Vector2 v1, int scalar) internal returns (Vector2 newVec) {
     newVec = add(v0, mul(norm(sub(v1, v0)), scalar));
   }
 
@@ -59,7 +59,7 @@ contract PegasusZero is AccountNetwork, SimpleRandomSpace {
   }
 
   // Vector2D a_moved = a.add(b.subtract(a).norm().multiply(d));
-  function moveAway(Vector2 v0, Vector2 v1, int scalar) internal pure returns (Vector2 newVec) {
+  function moveAway(Vector2 v0, Vector2 v1, int scalar) internal returns (Vector2 newVec) {
     newVec = sub(v0, mul(norm(sub(v1, v0)), scalar));
   }
 }

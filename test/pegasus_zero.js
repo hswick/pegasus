@@ -1,13 +1,13 @@
 const PegasusZero = artifacts.require("./PegasusZero.sol")
 const rpc = require('./helpers/rpc_client')
 const client = rpc.newClient()
+const point = require('./helpers/point')
 
 contract('PegasusZero', function(accounts) {
-  let pegasusZero
+  let pegasusZero, p
 
   before(async () => {
     pegasusZero = await PegasusZero.deployed()
-    
   })
 
   for(let i = 0; i < accounts.length; i++) {
@@ -24,6 +24,11 @@ contract('PegasusZero', function(accounts) {
     await pegasusZero.acceptConnectionRequest(accounts[0], {from: accounts[1]})
 
     assert.equal(1, (await pegasusZero.numConnectionsTo.call(accounts[0])).toNumber())
+  })
+
+  it('should get account data', async () => {
+    p = point(await pegasusZero.getPegasusCoordinate.call(accounts[0]))
+    console.log(p)
   })
 
   it('should make a bunch of connections', async () => {
@@ -45,6 +50,13 @@ contract('PegasusZero', function(accounts) {
     await pegasusZero.acceptConnectionRequest(accounts[2], {from: accounts[3]})
     await pegasusZero.acceptConnectionRequest(accounts[2], {from: accounts[4]})
     await pegasusZero.acceptConnectionRequest(accounts[6], {from: accounts[3]})
+  })
+
+  it('should get account data', async () => {
+    const p2 = point(await pegasusZero.getPegasusCoordinate.call(accounts[0]))
+    assert.notEqual(p.x, p2.x)
+    assert.notEqual(p.y, p2.y)
+    console.log(p2)
   })
 
   it('should make visualization', async () => {
