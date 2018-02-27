@@ -33,10 +33,10 @@ contract PegasusZero is AccountNetwork, SimpleRandomSpace {
    Vector2 memory temp;
    temp.x = v0.x;
    temp.y = v0.y;
-   Vector2 memory delta = moveTowards(v0, v1, int(10 ** 77));
+   Vector2 memory delta = moveTowards(v0, v1, int(10 ** 75));
    v0.x = delta.x;
    v0.y = delta.y;
-   Vector2 memory delta2 = moveTowards(v1, temp, int(10 ** 77));
+   Vector2 memory delta2 = moveTowards(v1, temp, int(10 ** 75));
    v1.x = delta2.x;
    v1.y = delta2.y;
   }
