@@ -9,8 +9,8 @@ contract SimpleRandomSpace is Vector2D {
   function newPoint() public {
     Vector2 storage p = points[msg.sender];
     require(p.x == 0x0 && p.y == 0x0);
-    //p.x = int(keccak256(this, msg.sender)) / 10 ** 68;
-    //p.y = int(keccak256(msg.sender)) / 10 ** 68;
+    // p.x = int(keccak256(this, msg.sender)) / 10 ** 76;
+    // p.y = int(keccak256(msg.sender)) / 10 ** 76;
     p.x = int(keccak256(this, msg.sender));
     p.y = int(keccak256(msg.sender));
   }
